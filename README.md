@@ -80,6 +80,8 @@ affinity-help/
 - 官方帮助中心：https://www.affinity.studio/help
 - 本地文章抓取：affinity.studio/help 官方英文原文（含抓取日期 frontmatter）
 
+> ⚠️ **缓存声明**：`references/articles/` 是对官方帮助中心的**快照缓存**（抓取日期 2026-08-06，见各文件 frontmatter `fetched` 字段）。官方文档持续更新，缓存可能滞后。skill 已内置「本地命中但涉及最新改动/版本差异 → 走在线实时检索」的兜底逻辑（SKILL.md 第 3 步，通过 Jina 实时抓取官方页面），**本地缓存 + 在线实时双通道**，两者结合保证答案基于最新官方原文。
+
 ---
 
 ## 关于作者

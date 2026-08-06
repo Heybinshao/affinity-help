@@ -51,6 +51,8 @@ description: >-
 ### 第 2 步：优先查本地知识库
 本地知识库（官方英文原文，已落地）路径：**当前 skill 安装目录下的 `references/articles/`**（如 Hermes：`~/.hermes/skills/affinity-help/references/articles/`；WorkBuddy：`~/.workbuddy/skills/affinity-help/references/articles/`；其他 agent 按各自 skills 目录定位）。每篇一个 `<slug>.md`，含 frontmatter：`title/source/slug/fetched`。
 
+> ⚠️ **缓存声明**：`references/articles/` 是对官方帮助中心的**快照缓存**（抓取日期见各文件 frontmatter `fetched`，当前为 2026-08-06）。官方文档持续更新，缓存可能滞后。本地命中且功能/界面无版本争议 → 可直接用；若用户问题涉及**最新改动、版本差异、或本地内容明显过时** → 必须走第 3 步实时检索官方帮助中心。
+
 - 用 Grep 在 `references/articles/` 内按关键词（slug 片段、标题、正文）检索。
 - 命中且内容相关 → 直接 Read 该文件，进入第 4 步。
 - 未命中或内容不足 → 进入第 3 步实时检索。
