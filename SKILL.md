@@ -49,8 +49,7 @@ description: >-
 - 若用户问题已含英文术语，直接使用。
 
 ### 第 2 步：优先查本地知识库
-本地知识库（官方英文原文，已落地）路径：
-`~/.workbuddy/skills/affinity-help/references/articles/`（每篇一个 `<slug>.md`，含 frontmatter：`title/source/slug/fetched`）。
+本地知识库（官方英文原文，已落地）路径：**当前 skill 安装目录下的 `references/articles/`**（如 Hermes：`~/.hermes/skills/affinity-help/references/articles/`；WorkBuddy：`~/.workbuddy/skills/affinity-help/references/articles/`；其他 agent 按各自 skills 目录定位）。每篇一个 `<slug>.md`，含 frontmatter：`title/source/slug/fetched`。
 
 - 用 Grep 在 `references/articles/` 内按关键词（slug 片段、标题、正文）检索。
 - 命中且内容相关 → 直接 Read 该文件，进入第 4 步。
