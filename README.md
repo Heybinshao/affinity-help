@@ -34,7 +34,7 @@
 | 10 | 跨应用协作 | 与其他应用/设备协作 |
 | 11 | 自动化 | 自动化 / 连接 AI 助手 |
 
-**本地知识库**：`references/articles/` 已落地 460+ 篇官方英文原文（每篇含 frontmatter：title/source/slug/fetched），离线可查；未命中时实时抓取官方帮助中心。
+**本地知识库**：`references/articles/` 已落地 **859 篇**官方英文原文（845 篇 sitemap 全集 + 14 篇 Canva 账户类），每篇含 frontmatter：title/source/slug/fetched，离线可查；未命中时实时抓取官方帮助中心。
 
 ---
 
@@ -45,6 +45,33 @@
 3. **优先查本地知识库** — Grep `references/articles/`，命中即用
 4. **未命中则实时检索** — 通过 Jina 把官方页面转 Markdown，搜索 / 浏览主题分类 / 抓取全文
 5. **基于原文作答** — 简体中文 + 保留英文术语 + 附来源 URL
+
+---
+
+## 知识库更新（维护模式）
+
+本地知识库是官方文档的快照缓存，官方持续更新。内置更新脚本 `scripts/update_kb.py`，对 AI 助手说「更新 Affinity 知识库」「体检一下」即可触发：
+
+```bash
+cd <skill目录>/scripts
+python3 update_kb.py check        # 体检：只比对 sitemap，不下载（约 12 秒）
+python3 update_kb.py diff         # 增量：抓官方新增、归档已下架（默认）
+python3 update_kb.py refresh 90   # 刷新 fetched 早于 90 天的文章
+python3 update_kb.py full         # 全量重抓 859 篇，约 50 分钟
+```
+
+| 用户说法 | 用哪个模式 | 耗时 |
+|---|---|---|
+| 「有没有更新」「体检一下」 | `check` | 12 秒 |
+| 「更新一下」（默认理解） | 先 `check`，有新增再 `diff` | 12 秒 + 新增数/18 分钟 |
+| 「Affinity 大版本更新了」「内容太旧了」 | `full` | 约 50 分钟 |
+| 「刷新半年前的」 | `refresh <天数>` | 视命中数 |
+
+**设计要点**：
+- 下架文章移入 `references/_retired/` **归档而非删除**，避免误判导致内容丢失
+- 脚本自动定位 skill 目录，跨 agent（Hermes / WorkBuddy）通用，无需改路径
+- `KEEP_EXTRA` 白名单保护 14 篇 sitemap 未收录但真实存在的 Canva 账户类页面
+- ⚠️ 官方 sitemap **不含 `lastmod`**（实测 9273 条 URL 中 `<lastmod>` 出现 0 次），无法检测单篇内容是否被改写——内容更新只能靠 `full` / `refresh` 重抓比对。这是站点侧限制，不是脚本缺陷
 
 ---
 
@@ -65,10 +92,13 @@
 ```
 affinity-help/
 ├── SKILL.md                 # 主文件：定位 + 工作流程 + 检索方法
+├── scripts/
+│   └── update_kb.py         # 知识库更新器（check/diff/refresh/full）
 └── references/
-    ├── structure.md         # 官方站点结构 + 11 主题分类
-    ├── _urls.json           # 466 篇文章 slug 清单
-    └── articles/            # 本地知识库：466 篇官方英文原文
+    ├── structure.md         # 官方站点结构 + 11 主题分类 + 完整性自检
+    ├── _urls.json           # 845 篇 sitemap 权威 slug 清单
+    ├── articles/            # 本地知识库：859 篇官方英文原文
+    └── _retired/            # 下架文章归档（diff 模式生成）
 ```
 
 ---
@@ -76,9 +106,10 @@ affinity-help/
 ## 数据来源
 
 - 官方帮助中心：https://www.affinity.studio/help
+- 官方 sitemap：https://sitemap.canva.com/affinity_sitemap_0.xml
 - 本地文章抓取：affinity.studio/help 官方英文原文（含抓取日期 frontmatter）
 
-> ⚠️ **缓存声明**：`references/articles/` 是对官方帮助中心的**快照缓存**（抓取日期 2026-08-06，见各文件 frontmatter `fetched` 字段）。官方文档持续更新，缓存可能滞后。skill 已内置「本地命中但涉及最新改动/版本差异 → 走在线实时检索」的兜底逻辑（SKILL.md 第 3 步，通过 Jina 实时抓取官方页面），**本地缓存 + 在线实时双通道**，两者结合保证答案基于最新官方原文。
+> ⚠️ **缓存声明**：`references/articles/` 是对官方帮助中心的**快照缓存**（抓取日期 2026-08-06，见各文件 frontmatter `fetched` 字段）。官方文档持续更新，缓存可能滞后。skill 已内置「本地命中但涉及最新改动/版本差异 → 走在线实时检索」的兜底逻辑（SKILL.md 第 3 步，通过 Jina 实时抓取官方页面），并支持「更新 Affinity 知识库」触发更新脚本。**本地缓存 + 在线实时 + 定时更新**三通道，保证答案基于最新官方原文。
 
 ---
 

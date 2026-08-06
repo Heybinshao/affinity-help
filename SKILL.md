@@ -96,6 +96,40 @@ curl -sL "https://r.jina.ai/https://www.affinity.studio/help/<slug>/" -o /tmp/af
 回答末尾固定附「官方来源」链接（文章 URL 或搜索页）。例：
 `官方来源：https://www.affinity.studio/help/layers-vector-masks/`
 
+## 知识库更新（维护模式）
+
+> 当用户说出以下任一意图时，**不要走问答流程**，改为执行本节的更新脚本：
+> 「更新 Affinity 知识库」「Affinity 文档更新一下」「查一下 Affinity 文档有没有更新」
+> 「Affinity 知识库体检」「重抓 Affinity 帮助文档」「affinity-help 更新」
+
+脚本：`scripts/update_kb.py`（自动定位 skill 目录，无需改路径）
+
+```bash
+cd <skill目录>/scripts
+python3 update_kb.py check        # 体检：只比对不下载，约 12 秒
+python3 update_kb.py diff         # 增量：抓官方新增、归档已下架（默认）
+python3 update_kb.py refresh 90   # 刷新 fetched 早于 90 天的文章
+python3 update_kb.py full         # 全量重抓 859 篇，约 50 分钟
+```
+
+**四种模式的选择逻辑**
+
+| 用户说法 | 用哪个模式 | 耗时 |
+|---|---|---|
+| 「有没有更新」「体检一下」 | `check` | 12 秒 |
+| 「更新一下」（默认理解） | 先 `check`，有新增再 `diff` | 12 秒 + 新增数/18 分钟 |
+| 「Affinity 大版本更新了」「内容太旧了」 | `full` | 约 50 分钟 |
+| 「刷新半年前的」 | `refresh <天数>` | 视命中数 |
+
+**执行要点**
+1. **先跑 `check`**，把差异报告给用户，再决定是否下载。除非用户明确说「直接全量重抓」。
+2. `diff` / `full` / `refresh` 耗时长，**必须后台运行**（`run_in_background: true`），期间可正常回答其他问题。
+3. 下架文章移入 `references/_retired/` **归档而非删除**，避免误判导致内容丢失。
+4. 跑完后向用户报告：最终篇数、体积、对照 sitemap 的缺失数、`ok/fail/404/thin` 计数。
+
+**为什么没有「只更新改动过的文章」这一档**
+官方 sitemap **不含 `lastmod` 字段**（已实测：9273 条 URL，`<lastmod>` 出现 0 次），因此无法判断单篇是否被官方修改过。要检测内容变动只能重抓比对，即 `full` 或 `refresh`。这是站点侧的限制，不是脚本缺陷。
+
 ## 回答风格
 - 简洁、专业、可执行；面向设计师/创作者，非堆术语。
 - 中文为主，术语中英对照；不夸张、不标题党。
