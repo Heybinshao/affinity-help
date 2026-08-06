@@ -67,11 +67,9 @@ affinity-help/
 ├── SKILL.md                 # 主文件：定位 + 工作流程 + 检索方法
 └── references/
     ├── structure.md         # 官方站点结构 + 11 主题分类
-    ├── _urls.json           # 465 篇文章 slug 清单
-    └── articles/            # 本地知识库：460+ 篇官方英文原文
+    ├── _urls.json           # 466 篇文章 slug 清单
+    └── articles/            # 本地知识库：466 篇官方英文原文
 ```
-
-> ⚠️ 注意：SKILL.md 中的本地路径 `~/.workbuddy/skills/affinity-help/references/articles/` 是作者本机路径。安装到自己的 agent 时，按实际安装路径修改。
 
 ---
 
