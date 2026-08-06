@@ -2,8 +2,48 @@
 
 官方帮助中心：`https://www.affinity.studio/help`
 
-> Affinity 已被 Canva 收购，当前为 Affinity V2（Canva 时代）文档，持续更新。
-> 旧版 V1 文档位于 `https://affinity.serif.com/help`（仅当用户明确问 V1 时参考）。
+## 称呼映射：用户说的「V3」= 本库覆盖版本 ★
+
+官方正式名 **Affinity by Canva**（2025 年 10 月发布），官方**不使用「V3」版本号**；但用户社区普遍称其为 V3。**二者同指，本库完全适用。**
+
+| 用户可能说 | 实际所指 | 本库适用 |
+|---|---|---|
+| V3 / Affinity 3 / 新版 / 免费版 | Affinity by Canva（2025-10） | ✅ |
+| Affinity by Canva | 同上 | ✅ |
+| V2 / 买断版 / 三款分立应用 | Serif 旧产品线 | ❌ 指向 `affinity.help` |
+| V1 | 更早旧版 | ❌ 指向 `affinity.help` |
+
+证据：
+- `info-for-v1-and-v2-users.md` 原文以 "Affinity by Canva user (launched October 2025)" 自称，并把 V1/V2 归为「与本文档无关」的旧产品。
+- `release-notes.md` 提及兼容性时称旧版为 "version 2.6"，新版自身不带数字版本号。
+
+**应答原则**：用户说「V3」时**不要纠正为「这不是 V3」**，直接确认「就是本库覆盖的版本」，必要时补一句官方叫法即可。
+
+**官方推荐的标准表述**（来自 `ai-connector-setup.md`，官方 FAQ 原题为 "Why does Claude think I'm using an older version of Affinity?"）：
+
+> "I'm using **Affinity by Canva, April '26 release**."
+
+格式 = **产品名 + 月份'年份 release**。官方以「按月发行」代替版本号：
+- `release-notes` = 当月最新发行说明；历史版 slug 形如 `mar-26-release-notes`
+- 描述功能引入时间时，优先写「26 年 4 月版起」，不要写笼统的「新版」
+
+V1/V2 用户资源（官方 `info-for-v1-and-v2-users` 给出）：文档 `affinity.help`、产品 `affinity.serif.com/v2/`、账户 `store.serif.com`、支持 `support.serif.com`。
+
+## 版本归属（重要勘误）
+本站文档覆盖的是 **Canva 收购后的新版统一 Affinity（= 用户口中的 V3）**，**不是 V2**。
+
+| | 新版 Affinity（本站） | Affinity V2（旧） |
+|---|---|---|
+| 形态 | **单一应用** | 三款独立应用 Designer / Photo / Publisher |
+| 工作区术语 | **Studio**（Vector / Pixel / Layout / Liquify / Develop / Tone Mapping） | Persona |
+| 获取方式 | Canva 账户免费使用，付费 Canva 计划解锁 AI 工具 | 一次性买断 |
+| 文档地址 | `affinity.studio/help` | `affinity.help`（产品介绍页为 `affinity.serif.com/v2/`，本站仅外链至此） |
+
+判定依据（均取自本地库原文）：
+- `introduction-about-affinity` 定义为 "a multi-discipline design app"，并用**过去时**追述 2014 年起的三款产品线。
+- `workspace-about-studios` 定义 Studio 为按设计门类分组工具与面板的工作区，可在工具栏切换。
+- `free-affinity-access` / `install-affinity` 把 "Affinity V2" 作为**外部链接**指向 serif 域名，即 V2 是另一个产品而非本文档对象。
+- 全库 417 篇出现 `persona` 字样，经排查**全部**来自图标文件名（`persona_vector.svg` 等）与遗留 slug `liquify-persona-liquify`，正文术语已无 Persona。
 
 ## 文章 URL 规律
 - 文章为扁平 slug：`https://www.affinity.studio/help/<slug>/`
@@ -62,6 +102,16 @@ comm -13 <(ls articles/ | sed 's/\.md$//' | sort) <(python3 -c "import json;[pri
 - 全库 grep 检索约 **0.12 秒**。
 
 **使用顺序**：优先 Grep 此目录；未命中再走上面的实时检索。命中后按需实时中译作答并附官方链接。
+
+**检索陷阱（实测）**
+
+| 坏写法 | 命中 | 问题 | 好写法 |
+|---|---|---|---|
+| `grep -ri "studio"` | **859/859** | 每篇 frontmatter 都有 `source: affinity.studio/...` | `grep -riE "(Vector\|Pixel\|Layout\|Liquify\|Develop) Studio"` → 241 篇 |
+| `grep -ri "LUT"` | 420 | 匹配 abso**lut**ely、so**lut**ion 词根 | `grep -riw "LUT"` |
+| `grep -ri "mask"` | 多 | 过宽 | `grep -ri "vector mask"` → 4 篇 |
+
+通则：**用完整短语 + 词边界；命中后先 grep 上下文验真，别只看文件名下结论。**
 
 ## 更新知识库
 

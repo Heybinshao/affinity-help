@@ -1,6 +1,6 @@
 # 🎨 Affinity Help — 基于官方帮助文档的中文问答
 
-> Affinity official-help Q&A skill — answer Affinity Photo / Designer / Publisher questions in Chinese, strictly grounded in the official help center.
+> Affinity official-help Q&A skill — answer Affinity by Canva (a.k.a. V3) questions in Chinese, strictly grounded in the official help center.
 
 > 当用户问「Affinity 怎么做 X」「Affinity 的快捷键」「导出 PDF 要注意什么」时，基于 affinity.studio/help 官方帮助中心的最新原文，用简体中文作答、附来源链接。**不臆测、不编造功能。**
 
@@ -8,11 +8,13 @@
 
 ## 这是什么
 
-一个 **Affinity 官方帮助文档问答 skill**：把 Affinity Photo / Designer / Publisher 的官方帮助中心（`affinity.studio/help`）变成可检索的中文问答助手。
+一个 **Affinity 官方帮助文档问答 skill**：把新版统一 Affinity（**Affinity by Canva**，2025-10 发布，用户社区常称 **V3**）的官方帮助中心（`affinity.studio/help`）变成可检索的中文问答助手。
 
-回答**严格基于官方文档原文**，所有结论都能追溯到具体文章 URL，不臆测、不编造功能。最终用**简体中文**作答，保留专业术语英文原名（Persona、Studio、Artboard）便于对照。
+回答**严格基于官方文档原文**，所有结论都能追溯到具体文章 URL，不臆测、不编造功能。最终用**简体中文**作答，保留专业术语英文原名（Studio、Artboard、Live Filter）便于对照。
 
-> 背景：Affinity 已被 Canva 收购，当前帮助中心为 Canva 时代（Affinity V2）版本。旧版 V1 文档在 `affinity.serif.com/help`，仅在用户明确问 V1 时参考。
+> **版本背景（重要）**：Affinity 已被 Canva 收购，官方推出统一应用 **Affinity by Canva**（用户常称 V3）——一个应用内含 Vector / Pixel / Layout 等多个 **Studio**。V2 的三款分立应用（Designer / Photo / Publisher）与 Persona 术语属于旧产品线，本库不覆盖（指向 `affinity.help`）。官方不使用版本号，以「按月发行」标识（如 "Affinity by Canva, April '26 release"）。
+
+> **称呼对照**：用户说「V3 / Affinity 3 / 新版 / 免费版」= 本库覆盖版本 ✅；说「V2 / 买断版 / Designer·Photo·Publisher 三款」= Serif 旧产品线 ❌。
 
 ---
 
@@ -83,7 +85,7 @@ python3 update_kb.py full         # 全量重抓 859 篇，约 50 分钟
 
 > 「导出带出血的 PDF 要注意什么？」
 
-> 「Affinity Photo 的 RAW 显影流程是怎样的？」
+> 「Affinity 的 RAW 显影流程是怎样的？」
 
 ---
 
