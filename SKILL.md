@@ -86,7 +86,7 @@ curl -sL "https://r.jina.ai/https://www.affinity.studio/help/<slug>/" -o /tmp/af
 - 以官方原文为准，**准确翻译**关键步骤与说明；专业术语保留英文（首次出现可括注中文）。
 - 步骤类问题：用编号步骤呈现，必要时说明菜单/面板路径（如「Layers 面板」「Photo Persona」）。
 - 若原文含「SEE ALSO / Related」链接且有助于用户深入，可提示。
-- **配图（图片）显示**：若原文含与答案直接相关的截图/示意图（如某面板位置、操作步骤示意、功能对比图），在回答对应位置用 Markdown 嵌入其链接：`![说明](图片URL)`。WorkBuddy 在线时会从 Canva 公开 CDN（images.ctfassets.net / content-management-files.canva.com 等，无需登录）直接渲染显示。**只嵌入与答案相关的内容图**；跳过 Logo、Cookie 同意横幅（cdn-au.onetrust.com）、纯 UI 装饰等噪音图。图片为远程链接，故离线时不会显示（如需离线看图，需将图片下载到本地并改写链接，属可选增强）。
+- **配图（图片）显示**：若原文含与答案直接相关的截图/示意图（如某面板位置、操作步骤示意、功能对比图），在回答对应位置用 Markdown 嵌入其链接：`![说明](图片URL)`。agent 在线时会从 Canva 公开 CDN（images.ctfassets.net / content-management-files.canva.com 等，无需登录）直接渲染显示。**只嵌入与答案相关的内容图**；跳过 Logo、Cookie 同意横幅（cdn-au.onetrust.com）、纯 UI 装饰等噪音图。图片为远程链接，故离线时不会显示（如需离线看图，需将图片下载到本地并改写链接，属可选增强）。
 - 区分「通用（三款 App 共有）」与「仅某款 App（Photo/Designer/Publisher）」的功能，避免张冠李戴。
 - 若文档未覆盖该问题：明确说明「官方帮助文档未直接提及」，并给出最相关的官方页面链接供用户自查；**不要编造**。
 
